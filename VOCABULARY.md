@@ -11,3 +11,4 @@
   - Yêu cầu độ trễ rất thấp (low latency), thường tính bằng mili-giây (ms).
   - Hoạt động thời gian thực (real-time) hoặc gần thời gian thực.
   - Nếu độ trễ cao → gây ra gián đoạn, lag, hoặc giảm chất lượng dịch vụ.
+- **overlapping functionality** (n) chức năng bị chồng lấn hoặc trùng lặp giữa hai (hoặc nhiều) hệ thống, công cụ, module hay tính năng,...

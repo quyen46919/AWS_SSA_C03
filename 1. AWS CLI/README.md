@@ -8,10 +8,10 @@ sudo ./aws/install
 
 ### AWS Configure
 
-Đăng ký account AWS (có add credit card)
-Đăng nhập
-Truy cập vào https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/users
-Create User -> Create Group "Admin" -> Full access
+Đăng ký account AWS (có add credit card)  
+Đăng nhập  
+Truy cập vào https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/users  
+Create User -> Create Group "Admin" -> Full access  
 Truy cập vào aws-examples -> Security credentials -> Access keys -> Command Line Interface -> Create access key
 
 Nhập vào terminal

@@ -1,9 +1,11 @@
 ### Từ vựng
 
+- **privilege** /ˈprɪvəlɪdʒ/ (n) Quyền, đặc quyền
 - **consistent** /kənˈsɪstənt/ (adj) Tính nhất quán
 - **integrity** /ɪnˈteɡrəti/ (n) Toàn vẹn
 - **replication** /ˌreplɪˈkeɪʃn/ (n) Sự sao chép
 - **on-demand** /ˌɒn dɪˈmɑːnd/ (adj) Theo yêu cầu
+- **enforce** (v) Thực thi
 
 ### Thuật ngữ
 

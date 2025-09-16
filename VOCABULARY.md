@@ -6,6 +6,7 @@
 - **replication** /ˌreplɪˈkeɪʃn/ (n) Sự sao chép
 - **on-demand** /ˌɒn dɪˈmɑːnd/ (adj) Theo yêu cầu
 - **enforce** (v) Thực thi
+- **provision** (n) Sự cung cấp
 
 ### Thuật ngữ
 

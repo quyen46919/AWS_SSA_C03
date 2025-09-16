@@ -53,3 +53,15 @@ sudo ./aws/install
    ```
    export AWS_CLI_AUTO_PROMPT=on-partial
    ```
+
+### IAM Overview
+
+![introduction](../images/iam/iam.png)
+
+### Managed vs Customer vs inline Policy
+
+![introduction](../images/iam/iam-managed-vs-customer-vs-inline-policy.png)
+
+### Anatomy of an IAM Policy
+
+![introduction](../images/iam/iam-anatomy.png)

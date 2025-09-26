@@ -14,19 +14,19 @@ Vào service IAM -> Access management - Policy -> Create policy
 
 ![General configuration](../../images/iam/iam-setting-panel.png)
 
-Bạn có thể chỉ định từng loại Resource, service tương ứng với role mà bạn muốn cấp quyền, sau đó đặt tên và tạo.
+Có thể chỉ định từng loại Resource, service tương ứng với role mà bạn muốn cấp quyền, sau đó đặt tên và tạo.
 
 ![General configuration](../../images/iam/iam-specify-permission.png)
 
-Tại màn hình Dashboard, bạn có thể filter policy vừa tạo theo mục **Customer managed**.
+Tại màn hình Dashboard, có thể filter policy vừa tạo theo mục **Customer managed**.
 
 ![General configuration](../../images/iam/iam-create-policy-success.png)
 
 ## Thực hành tạo CloudFormation template thông qua file .yml
 
-**CloudFormation AWS** là một dịch vụ giúp bạn triển khai và quản lý hạ tầng dưới dạng mã (Infrastructure as Code – IaC).
+**CloudFormation AWS** là một dịch vụ giúp triển khai và quản lý hạ tầng dưới dạng mã (Infrastructure as Code – IaC).
 
-Thay vì phải tự tay tạo từng dịch vụ (EC2, S3, RDS, VPC, IAM,...) trên AWS Console, bạn chỉ cần viết một file cấu hình (JSON hoặc YAML) mô tả toàn bộ hạ tầng mong muốn và triển khai nó, CloudFormation sẽ tự động thao tác giúp bạn.
+Thay vì phải tự tay tạo từng dịch vụ (EC2, S3, RDS, VPC, IAM,...) trên AWS Console, chỉ cần viết một file cấu hình (JSON hoặc YAML) mô tả toàn bộ hạ tầng mong muốn và triển khai nó, CloudFormation sẽ tự động thao tác giúp.
 
 **CloudFormation Stack** là tập hợp các resource được CloudFormation tạo ra từ một template và quản lý như một đơn vị duy nhất giúp quản lý hạ tầng gọn gàng, dễ triển khai tương tự cho nhiều môi trường (dev, staging, production) và có hỗ trợ rollback.
 

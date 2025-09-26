@@ -24,13 +24,17 @@ sudo ./aws/install
 
    Lưu ý nguyên tắc khi tạo account: **"least privilege"** - chỉ cấp quyền tối thiểu cần thiết
 
-4. Lấy key từ IAM, nhập vào terminal
+4. Lấy key từ IAM, cấu hình aws configure global
 
    ```code
-   export AWS_ACCESS_KEY_ID=SAMPLE
-   export AWS_SECRET_ACCESS_KEY=SAMPLE
-   export AWS_DEFAULT_REGION=us-east-1
+   aws configure
    ```
+
+   Nhập lần lượt các key sau:
+
+   - AWS_ACCESS_KEY_ID=SAMPLE
+   - AWS_SECRET_ACCESS_KEY=SAMPLE
+   - AWS_DEFAULT_REGION=us-east-1
 
 5. Check connection
 
@@ -48,6 +52,8 @@ sudo ./aws/install
    }
    ```
 
+   **Amazon Resource Name (ARN)** là cách AWS **định danh duy nhất** cho mọi tài nguyên trên toàn hệ thống
+
 6. Bật gõ lệnh tự động (optional)
 
    ```
@@ -58,10 +64,133 @@ sudo ./aws/install
 
 ![introduction](../images/iam/iam.png)
 
+**AWS Identity and Access Management (IAM)** giúp tạo và quản lý AWS users và groups, và sử dụng permissions để cho phép hoặc từ chối quyền truy cập của một ai đó đến AWS resources.
+
+**IAM Policies**
+Tài liệu JSON cấp quyền cho một user, group, hoặc role cụ thể để truy cập services. Policies được gắn với IAM Identities.
+
+**IAM Permission**
+Các hành động API có thể hoặc không thể được thực hiện.
+Chúng được thể hiện trong IAM Policy document.
+
+**IAM Identities**
+
+- IAM Users: Người dùng cuối đăng nhập vào console hoặc tương tác với AWS resources - bằng lập trình hoặc thông qua giao diện UI.
+- IAM Groups: Nhóm các Users có cùng mức permission của group (Administrators, Developers, Auditors).
+- IAM Roles: Roles cấp quyền AWS resources cho các hành động API cụ thể của AWS. Gắn policies với một Role rồi gán nó cho một AWS resource.
+
 ### Managed vs Customer vs inline Policy
 
 ![introduction](../images/iam/iam-managed-vs-customer-vs-inline-policy.png)
 
+**Managed Policies**: Một policy được quản lý bởi AWS, mà bạn không thể chỉnh sửa. Managed policies được đánh dấu bằng một ô màu cam.
+
+**Customer Managed Policies**: Một policy được tạo bởi customer và có thể chỉnh sửa. Customer policies không có ký hiệu nào bên cạnh.
+
+**Inline Policies**: Một policy được gắn trực tiếp vào user.
+
 ### Anatomy of an IAM Policy
 
 ![introduction](../images/iam/iam-anatomy.png)
+
+IAM Policies được viết bằng JSON, và chứa permissions để xác định những API actions nào được phép hoặc bị từ chối.
+
+- **Version**: ngôn ngữ của policy version.
+- **Statement container**: danh sách policy element, có thể tạo nhiều.
+- **Sid** (tùy chọn): gắn nhãn cho statements.
+- **Effect**: thiết lập policy sẽ Allow hoặc Deny.
+- **Action**: danh sách các actions mà policy cho phép hoặc từ chối.
+- **Principal**: danh sách account, user, role, hoặc federated user mà bạn muốn cho phép hoặc từ chối truy cập.
+- **Resource**: resource mà action(s) được áp dụng.
+- **Condition**: (tùy chọn) giúp bổ sung thêm điều kiện để xác định khi nào một policy được áp dụng.
+
+### Principle of Least Privilege (PoLP)
+
+![introduction](../images/iam/iam-principle-of-least-privilege.png)
+
+**Principle of Least Privilege (PoLP)** là khái niệm bảo mật máy tính về việc cung cấp cho một user, role, hoặc application lượng permission ít nhất để thực hiện một thao tác hoặc hành động.
+
+**Just-Enough-Access (JEA)**: Chỉ cho phép các hành động chính xác cần thiết để identity thực hiện một tác vụ.
+
+**Just-In-Time (JIT)**: Chỉ cho phép thời lượng ngắn nhất mà một identity có thể sử dụng permissions.
+
+**Risk-based adaptive policies**: Mỗi lần cố gắng truy cập vào một resource sẽ tạo ra một điểm số rủi ro về khả năng request đến từ một nguồn đã bị xâm phạm. Điểm số rủi ro có thể dựa trên nhiều yếu tố, ví dụ: thiết bị, vị trí user, địa chỉ IP, service nào đang được truy cập và thời điểm nào.
+
+> ⚠️ AWS tại thời điểm này chưa có Risk-based adaptive policies tích hợp trong IAM.
+
+### IAM Account Root User
+
+![introduction](../images/iam/iam-account-root-user-1.png)
+
+- **AWS Account**: tài khoản chứa tất cả AWS resources của bạn.
+- **AWS Account – Root User**: một tài khoản đặc biệt có toàn quyền truy cập và không thể bị xóa.
+- **AWS Account – User**: một user cho các tác vụ thông thường, được gán permissions.
+
+AWS Account Root User là một user đặc biệt được tạo ra khi khởi tạo tài khoản AWS:
+
+- Root User sử dụng Email và Password để đăng nhập.
+  - Một regular user phải cung cấp Account ID / Alias, Username và Password.
+- Root User không thể bị xóa.
+- Root User có toàn quyền với tài khoản và các quyền này _không thể bị giới hạn_.
+  - Bạn không thể dùng IAM policies để từ chối rõ ràng quyền truy cập resource của Root User.
+  - Bạn chỉ có thể dùng AWS Organizations service control policy (SCP) để giới hạn quyền của Root User.
+- Mỗi tài khoản AWS chỉ có một Root User.
+- Root User chỉ nên dùng cho những tác vụ đặc biệt, hiếm khi cần.
+  - Một AWS Root Account không nên dùng cho các tác vụ hằng ngày hoặc phổ biến.
+- Rất khuyến nghị không bao giờ sử dụng Root User Access Keys.
+- Rất khuyến nghị bật Multi-Factor Authentication (MFA) cho Root User.
+
+![introduction](../images/iam/iam-account-root-user-2.png)
+
+- Administrative Tasks là loại task duy nhất Root User có thể thực hiện:
+- Thay đổi cài đặt tài khoản:
+  - Bao gồm: account name, email address, root user password, root user access keys.
+  - Các cài đặt khác như contact info, payment currency, Regions thì không cần root.
+- Khôi phục quyền của IAM user
+  - Nếu IAM administrator lỡ tay thu hồi hết quyền của mình → chỉ root user mới có thể đăng nhập và - khôi phục.
+- Kích hoạt quyền truy cập IAM cho phép vào bảng điều khiển Billing and Cost Management.
+- Xem một số hóa đơn thuế đặc biệt.
+- Đđóng tài khoản AWS.
+- Thay đổi hoặc hủy gói AWS Support.
+- Đăng ký làm người bán trên Reserved Instance Marketplace (một chợ giao dịch nơi bạn có thể bán hoặc mua lại Reserved Instances (RI) của Amazon EC2 từ những người dùng AWS khác).
+- Bật MFA Delete trên S3.
+- Edit or delete an Amazon S3 bucket policy nếu policy chứa invalid VPC ID hoặc VPC endpoint ID.
+- Sign up for GovCloud.
+
+<details>
+
+<summary>Reserved Instance (RI) và RI Market</summary>
+
+Bình thường bạn chạy EC2 On-Demand = trả tiền theo giờ/giây, giá cao.
+
+Với Reserved Instance => bạn cam kết dùng trong 1 hoặc 3 năm → đổi lại giá rẻ hơn (tiết kiệm tới ~70%).
+
+Nhưng vấn đề là nếu bạn không còn nhu cầu dùng nữa (ví dụ scale down, đổi region, đổi loại instance), RI sẽ “nằm chờ” rất lãng phí.
+
+=> Bạn có thể bán lại RI chưa dùng hết thời hạn cho người dùng khác. Người khác có thể mua lại RI với giá rẻ hơn so với AWS bán trực tiếp.
+
+AWS thu phí 12% trên số tiền bán được.
+
+RI phải có thời hạn còn lại ít nhất 1 tháng mới được list lên Marketplace.
+
+Khi bạn bán lại một Reserved Instance (RI), bạn không chuyển giao toàn bộ hợp đồng gốc của mình cho người mua, AWS sẽ tạo ra một hợp đồng RI mới dành cho người mua, có thời hạn đúng bằng thời gian còn lại của RI bạn đã bán.
+
+</details>
+
+### IAM Password Policy
+
+![introduction](../images/iam/iam-password-policy.png)
+
+Trong IAM, có thể set Password Policy nhằm xác định yêu cầu tối thiểu của password và yêu cầu user phải lặp lại việc update mật khẩu sau X ngày.
+
+- Độ dài mật khẩu tối thiểu.
+- Bắt buộc ít nhất một chữ hoa.
+- Bắt buộc ít nhất một chữ thường.
+- Bắt buộc ít nhất một chữ số.
+- Bắt buộc ít nhất một ký tự đặc biệt (ví dụ: !@#$%).
+- Cho phép người dùng tự đổi mật khẩu.
+- Bật tính năng hết hạn mật khẩu.
+  - Thời gian hiệu lực của mật khẩu (tính theo ngày).
+- Ngăn tái sử dụng mật khẩu cũ.
+  - Số lượng mật khẩu gần nhất không được dùng lại.
+- Khi mật khẩu hết hạn thì bắt buộc admin reset thay vì người dùng tự đổi.

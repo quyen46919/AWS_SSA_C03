@@ -1,13 +1,13 @@
 ## AWS Solution Architect Associate Roadmap 🚀
 
-Tự học AWS SSA-C03 dựa trên khóa học youtube của Andrew Brown + một đống tài liệu khác liên quan 🥸
+Tự học AWS SSA-C03 dựa trên khóa học youtube của Andrew Brown + ChatGPT + một đống tài liệu khác liên quan 🥸
 
 Nguồn: https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=7206s  
 Playlist: https://www.youtube.com/playlist?list=PLBfufR7vyJJ6FhBhJJSaMkI-m2wyoPy-G
 
 Các mục bên dưới không xếp theo độ ưu tiên mà là quá trình học của tôi 🐣
 
-P/s: Trong các bài sẽ nhắc lại kiến thức của những module khác hoặc kiến thức có liên quan nên đôi khi bạn sẽ thấy nó dư thừa, nhưng sau này cần ôn lại bạn sẽ thấy nó thực sự hữu ích vì không phải research thêm 🕵️‍♂️
+P/s: Trong các bài sẽ nhắc lại kiến thức của những module khác hoặc kiến thức có liên quan nên đôi khi bạn sẽ thấy nó dư thừa, nhưng với tôi nó thực sự hữu ích vì khi cần ôn lại thì không phải research thêm 🕵️‍♂️
 
 ### PART 1 - IAM
 

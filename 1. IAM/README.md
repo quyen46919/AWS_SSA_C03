@@ -194,3 +194,105 @@ Trong IAM, có thể set Password Policy nhằm xác định yêu cầu tối th
 - Ngăn tái sử dụng mật khẩu cũ.
   - Số lượng mật khẩu gần nhất không được dùng lại.
 - Khi mật khẩu hết hạn thì bắt buộc admin reset thay vì người dùng tự đổi.
+
+IAM > Account Settings > Password Policy > Edit
+
+### IAM - Access Keys
+
+![introduction](../images/iam/iam-access-keys.png)
+
+Access Key cho phép người dùng tương tác với dịch vụ AWS theo cách lập trình thông qua AWS CLI hoặc AWS SDK.
+
+Mỗi user được phép có tối đa 2 Access Keys.
+
+Lưu ý khi sử dụng Access Keys:
+
+- Access Keys được dùng để gửi các request bảo mật qua REST hoặc HTTP Query protocol.
+- Theo best practice, nên làm mới Access Keys thường xuyên để tăng tính bảo mật.
+- Khi tạo mới, Secret Access Key chỉ hiển thị một lần duy nhất nên nếu mất phải tạo Access Key mới.
+- Có thể tải Access Key dưới dạng file `.csv` để lưu trữ an toàn.
+- Trạng thái Access Key có thể là Active (đang hoạt động) hoặc chuyển sang Inactive khi không dùng nữa để tăng tính bảo mật.
+
+### IAM Multi-factor Authentication (MFA)
+
+![introduction](../images/iam/iam-multi-factor-authentication.png)
+
+MFA là một cơ chế bảo mật: sau khi nhập username/email và password, bạn phải dùng một thiết bị thứ hai (ví dụ điện thoại) để xác nhận rằng chính bạn đang đăng nhập.
+
+MFA giúp bảo vệ khỏi việc kẻ xấu đánh cắp password của bạn.
+
+MFA được hỗ trợ bởi hầu hết các cloud provider và thậm chí cả các trang mạng xã hội như Facebook.
+
+Phân biệt:
+
+- One Factor: chỉ cần username + password.
+- Two-Factor / Multi-Factor: thêm một hoặc nhiều lớp bảo mật nữa (ví dụ: mã xác thực từ điện thoại, hoặc nhận OTP qua Email).
+
+### Temporary Security Credentials
+
+![introduction](../images/iam/iam-temporary-security-credentials.png)
+
+Temporary credentials (chứng nhận tạm thời) giống như Access Keys thông thường ngoại trừ việc chúng là tạm thời.
+
+Temporary credentials hữu ích trong các tình huống bao gồm:
+
+- **Identity federation**: Liên kết danh tính (một bộ thông tin đăng nhập duy nhất nhưng có thể truy cập nhiều hệ thống, dịch vụ)
+- **Delegation**: Ủy quyền
+- **Cross-account access**: Truy cập liên tài khoản
+- **IAM roles**: phân quyền trong IAM
+
+Temporary credentials có thể tồn tại từ vài phút đến một giờ.
+
+Temporary credentials không được lưu cùng với user mà được sinh ra một cách động và cung cấp cho user khi cần.
+
+Temporary credentials là nền tảng cho roles và identity federation. AWS tự động sinh ra Temporary credentials cho IAM Roles.
+
+### Identity Federation
+
+![introduction](../images/iam/iam-identity-federation.png)
+
+Identity Federation là phương tiện liên kết danh tính điện tử và thuộc tính, được lưu trữ trên nhiều hệ thống quản lý danh tính riêng biệt và cho phép người dùng tồn tại trên nhiều nền tảng khác nhau với cùng một bộ thông tin.
+
+Ví dụ: Người dùng trên Facebook nhưng lại có quyền truy cập như thể họ là người dùng trong AWS.
+
+IAM hỗ trợ hai loại liên kết danh tính
+
+1. Liên kết danh tính doanh nghiệp (Enterprise identity federation)
+
+- SAML (Microsoft Active Directory)
+- Custom Federation broker: Nhà môi giới liên kết tùy chỉnh
+
+2. Liên kết danh tính Web (Web identity federation)
+
+- Amazon
+- Facebook
+- Google
+- OpenID Connect (OIDC) 2.0
+
+OpenID Connect (OIDC) là một lớp xác thực nằm trên OAuth 2.0, một khuôn khổ ủy quyền (authorization framework).
+
+### Security Token Service (STS)
+
+![introduction](../images/iam/iam-security-token-service.png)
+
+STS là dịch vụ web cho phép bạn yêu cầu thông tin xác thực tạm thời, có đặc quyền giới hạn cho người dùng IAM hoặc cho người dùng liên kết (federated users).
+
+AWS Security Token Service (STS) là một dịch vụ toàn cầu (global service), và tất cả các yêu cầu AWS STS đều đến một điểm cuối duy nhất tại https://sts.amazonaws.com.
+
+Một STS sẽ trả về:
+
+- AccessKeyID
+- SecretAccessKey
+- SessionToken
+- Expiration
+
+Bạn có thể sử dụng các hành động API sau để lấy STS:
+
+- **AssumeRole**: Cho phép một IAM user hoặc AWS service tạm thời nhận một IAM Role (có quyền khác với quyền gốc)
+- **AssumeRoleWithSAML**: Giống AssumeRole, nhưng thay vì IAM user gọi trực tiếp, thì người dùng bên ngoài (đăng nhập qua Identity Provider hỗ trợ SAML, ví dụ: Microsoft AD FS) sẽ nhận được quyền Role.
+- **AssumeRoleWithWebIdentity**: Giống AssumeRole, nhưng dành cho ứng dụng mobile/web xác thực bằng Identity Provider công cộng (Google, Facebook, Amazon Cognito…)
+- **DecodeAuthorizationMessage**: Giải mã thông điệp lỗi “encoded authorization failure message” (thường gặp khi IAM bị từ chối quyền truy cập)
+- **GetAccessKeyInfo**: Lấy thông tin account thông qua Access Key ID
+- **GetCallerIdentity**: Trả về thông tin của người đang call API
+- **GetFederationToken**: Cấp temporary credentials cho một user liên bang
+- **GetSessionToken**: Cấp temporary credentials cho IAM user hoặc root user.

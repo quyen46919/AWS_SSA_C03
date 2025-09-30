@@ -7,6 +7,7 @@
 - **on-demand** /ˌɒn dɪˈmɑːnd/ (adj) Theo yêu cầu
 - **enforce** (v) Thực thi
 - **provision** (n) Sự cung cấp
+- **workforce** (n) Lực lượng lao động / nhân sự
 
 ### Thuật ngữ
 

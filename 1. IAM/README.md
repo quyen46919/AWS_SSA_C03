@@ -288,7 +288,12 @@ Một STS sẽ trả về:
 
 Bạn có thể sử dụng các hành động API sau để lấy STS:
 
+![introduction](../images/iam/iam-cross-account-roles.png)
+
 - **AssumeRole**: Cho phép một IAM user hoặc AWS service tạm thời nhận một IAM Role (có quyền khác với quyền gốc)
+
+![introduction](../images/iam/iam-assume-role-with-web-identity.png)
+
 - **AssumeRoleWithSAML**: Giống AssumeRole, nhưng thay vì IAM user gọi trực tiếp, thì người dùng bên ngoài (đăng nhập qua Identity Provider hỗ trợ SAML, ví dụ: Microsoft AD FS) sẽ nhận được quyền Role.
 - **AssumeRoleWithWebIdentity**: Giống AssumeRole, nhưng dành cho ứng dụng mobile/web xác thực bằng Identity Provider công cộng (Google, Facebook, Amazon Cognito…)
 - **DecodeAuthorizationMessage**: Giải mã thông điệp lỗi “encoded authorization failure message” (thường gặp khi IAM bị từ chối quyền truy cập)
@@ -296,3 +301,18 @@ Bạn có thể sử dụng các hành động API sau để lấy STS:
 - **GetCallerIdentity**: Trả về thông tin của người đang call API
 - **GetFederationToken**: Cấp temporary credentials cho một user liên bang
 - **GetSessionToken**: Cấp temporary credentials cho IAM user hoặc root user.
+
+### AWS Single-Sign on
+
+![introduction](../images/iam/iam-single-sign-on.png)
+
+Cơ chế Single Sign-On là đăng nhập một lần, dùng nhiều nơi.
+
+AWS Single Sign-On (AWS SSO) giúp không cần tạo user trong từng AWS account, chỉ cần định nghĩa 1 lần ở AWS SSO và cấp quyền, sau đó user có thể đăng nhập vào nhiều account hoặc ứng dụng mà không cần nhập lại mật khẩu.
+
+- **On-premises AD** (Active Directory cài trong công ty) có thể được kết nối vào AWS SSO bằng AD Connector / AD trust.
+- Người dùng ở công ty (On-premises users và groups) có thể dùng thông tin đăng nhập của họ để truy cập AWS SSO.
+- Sau khi được cấp quyền AWS SSO, họ có thể truy cập đến:
+  - AWS Consoles (các tài khoản AWS trong OU Development, OU Production được quản lý bởi AWS Organizations).
+  - Business cloud applications như Office 365, Dropbox, Slack,...
+  - Custom SAML applications (ứng dụng nội bộ hay từ đối tác, miễn là hỗ trợ SAML).

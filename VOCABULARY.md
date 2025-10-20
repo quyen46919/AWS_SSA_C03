@@ -8,6 +8,10 @@
 - **enforce** (v) Thực thi
 - **provision** (n) Sự cung cấp
 - **workforce** (n) Lực lượng lao động / nhân sự
+- **pillar** (n) trụ cột
+- **observability** (n) khả năng quan sát
+- **retention** (n) sự giữ lại
+- **underlying** (n) (ám chỉ) lớp phần mềm hoặc phần cứng đang chạy bên dưới máy ảo (VM)
 
 ### Thuật ngữ
 

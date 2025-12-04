@@ -12,6 +12,10 @@
 - **observability** (n) khả năng quan sát
 - **retention** (n) sự giữ lại
 - **underlying** (n) (ám chỉ) lớp phần mềm hoặc phần cứng đang chạy bên dưới máy ảo (VM)
+- **tolerance** (n) sức chịu đựng
+- **precision** (n) độ chính xác
+- **integrate** (v) tích hợp
+- **standardize** (v) chuẩn hóa
 
 ### Thuật ngữ
 
@@ -20,3 +24,4 @@
   - Hoạt động thời gian thực (real-time) hoặc gần thời gian thực.
   - Nếu độ trễ cao → gây ra gián đoạn, lag, hoặc giảm chất lượng dịch vụ.
 - **overlapping functionality** (n) chức năng bị chồng lấn hoặc trùng lặp giữa hai (hoặc nhiều) hệ thống, công cụ, module hay tính năng,...
+- **changed over time** (n) thay đổi theo thời gian
